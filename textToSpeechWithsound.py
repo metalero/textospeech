@@ -75,7 +75,7 @@ def createWordSound(word):
         setSampleValueAt(wordSound,wordIndex,hesampleValue)
         wordIndex = wordIndex+1
         # testing other dinamic funciton
-        wordToS
+       # wordToS
       #wavFilePath.append("/Users/amitpanchal/Desktop/GitHub Files/textospeech/HE.wav")
      # tempSound = makeSound(wavFilePath[i])
       #samplingRates.append(getSamplingRate(tempSound)) 
