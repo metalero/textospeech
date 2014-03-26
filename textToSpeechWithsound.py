@@ -54,19 +54,33 @@ def createWordSound(word):
   coFIlePath="/Users/bobby/textospeech/CO.wav"
   olFilePath="/Users/bobby/textospeech/OL.wav"
   
+  buFIlePath="/Users/bobby/textospeech/BU.wav"
+  shFilePath="/Users/bobby/textospeech/SH.wav"
+  itFilePath="/Users/bobby/textospeech/IT.wav"
+  
+  
       
   #making the sound files
   heSound=makeSound(heFilePath)
   llSound=makeSound(llFilePath)
   loSound=makeSound(loFilePath)
   
+  #adding sh it bu
+  buSound=makeSound(buFIlePath)
+  shSound=makeSound(shFilePath)
+  itSound=makeSound(itFilePath)
+  
   #getting the leght of eahc file
   helen=getLength(heSound)
   lllen=getLength(llSound)
   lolen=getLength(loSound)
   
+  # making lethgs sh it bu
+  bulen=getLength(buSound)
+  shlen=getLength(shSound)
+  itlen=getLength(itSound)
   
-    #making the sound files
+  #making the sound files
   coSound=makeSound(coFIlePath)
   olSound=makeSound(olFilePath)
   
@@ -79,7 +93,8 @@ def createWordSound(word):
   
   #creating the empty file sound
   
-  wordSound=makeEmptySound(helen + lllen + lolen, 44100)
+  #wordSound=makeEmptySound(helen + lllen + lolen, 44100)
+  wordSound=makeEmptySound(bulen + lllen + shlen + itlen, 44100)
   wordIndex=0;
       
   for i in range(0,wordLength):
@@ -115,12 +130,31 @@ def createWordSound(word):
         losampleValue=getSampleValueAt(olSound,i)
         #print "it enter this part"
         setSampleValueAt(wordSound,wordIndex,losampleValue)
-        wordIndex = wordIndex+1    
-   
+        wordIndex = wordIndex+1
         
-  
-  
-  
+     #from here on adding more
+    elif(word[i].lower() == "bu"):
+      for i in range(0,bulen):
+        losampleValue=getSampleValueAt(buSound,i)
+        #print "it enter this part"
+        setSampleValueAt(wordSound,wordIndex,losampleValue)
+        wordIndex = wordIndex+1
+        
+    elif(word[i].lower() == "sh"):
+      for i in range(0,shlen):
+        losampleValue=getSampleValueAt(shSound,i)
+        #print "it enter this part"
+        setSampleValueAt(wordSound,wordIndex,losampleValue)
+        wordIndex = wordIndex+1
+        
+        
+    elif(word[i].lower() == "it"):
+      for i in range(0,itlen):
+        losampleValue=getSampleValueAt(itSound,i)
+        #print "it enter this part"
+        setSampleValueAt(wordSound,wordIndex,losampleValue)
+        wordIndex = wordIndex+1            
+   
   chooseSpeed(wordSound, 3)
   
   
