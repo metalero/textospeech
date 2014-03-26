@@ -19,11 +19,32 @@ def evenLetters(userInput, wordStart):
       
   createWordSound(word)
   
+
+#dinamic word copilation  
+#defining a global varialbe
+fullWordSound=makeEmptySound(1,44100)
+
+def wordToSound(partOfWord):
+    tempWlen=getLength(fullWordSound)
+    tempPart=getLength(partOfWord)
+    # copying what was in the global empty sound
+    
+    tempFullWordSound=makeEmptySound(tempWlen + tempPart, 44100)
+    for i in range(0, tempWlen):
+      sample=getSampleValueAt( fullWordSound, i)
+      setSampleValueAT(tempFullWordSound,i, sample)
+    
+    tempFlen=getLength(tempFUllWordSound)    
+    fullWordSound = makeEmptySound(tempWlen + tempPart, 44100) 
+    for i in range(0, tempFlen):
+      sample=getSampleValueAT(tempFullWordSound, i)
+      setSampleValueAt(fullWordSound, i, sample) 
+      
 def createWordSound(word):
   wordLength = len(word)
   
-  wavFilePath = []
-  samplingRates = []
+  #wavFilePath = []
+  #samplingRates = []
   
   # file paths
   heFilePath= "/Users/bobby/textospeech/HE.wav"
@@ -53,6 +74,8 @@ def createWordSound(word):
         hesampleValue=getSampleValueAt(heSound,i)
         setSampleValueAt(wordSound,wordIndex,hesampleValue)
         wordIndex = wordIndex+1
+        # testing other dinamic funciton
+        wordToS
       #wavFilePath.append("/Users/amitpanchal/Desktop/GitHub Files/textospeech/HE.wav")
      # tempSound = makeSound(wavFilePath[i])
       #samplingRates.append(getSamplingRate(tempSound)) 
