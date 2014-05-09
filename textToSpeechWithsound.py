@@ -19,27 +19,6 @@ def evenLetters(userInput, wordStart):
       
   createWordSound(word)
   
-
-#dinamic word copilation  
-#defining a global varialbe
-fullWordSound=makeEmptySound(1,44100)
-
-def wordToSound(partOfWord):
-    tempWlen=getLength(fullWordSound)
-    tempPart=getLength(partOfWord)
-    # copying what was in the global empty sound
-    
-    tempFullWordSound=makeEmptySound(tempWlen + tempPart, 44100)
-    for i in range(0, tempWlen):
-      sample=getSampleValueAt( fullWordSound, i)
-      setSampleValueAT(tempFullWordSound,i, sample)
-    
-    tempFlen=getLength(tempFUllWordSound)    
-    fullWordSound = makeEmptySound(tempWlen + tempPart, 44100) 
-    for i in range(0, tempFlen):
-      sample=getSampleValueAT(tempFullWordSound, i)
-      setSampleValueAt(fullWordSound, i, sample) 
-      
 def createWordSound(word):
   wordLength = len(word)
   
@@ -70,92 +49,76 @@ def createWordSound(word):
   shSound=makeSound(shFilePath)
   itSound=makeSound(itFilePath)
   
-  #getting the leght of eahc file
-  helen=getLength(heSound)
-  lllen=getLength(llSound)
-  lolen=getLength(loSound)
-  
-  # making lethgs sh it bu
-  bulen=getLength(buSound)
-  shlen=getLength(shSound)
-  itlen=getLength(itSound)
-  
   #making the sound files
   coSound=makeSound(coFIlePath)
   olSound=makeSound(olFilePath)
-  
-  
-  #getting the leght of eahc file
-  colen=getLength(coSound)
-  ollen=getLength(olSound)
-  
-  
-  
-  #creating the empty file sound
-  
-  #wordSound=makeEmptySound(helen + lllen + lolen, 44100)
-  wordSound=makeEmptySound(bulen + lllen + shlen + itlen, 44100)
-  wordIndex=0;
+
       
   for i in range(0,wordLength):
     if(word[i].lower() == "he"):
-      for i in range(0,helen):
-        hesampleValue=getSampleValueAt(heSound,i)
-        setSampleValueAt(wordSound,wordIndex,hesampleValue)
-        wordIndex = wordIndex+1
+      wordToSound(heSound)
        
     elif(word[i].lower() == "ll"):
-      for i in range(0,helen):
-        llsampleValue=getSampleValueAt(llSound,i)
-        setSampleValueAt(wordSound,wordIndex,llsampleValue)
-        wordIndex = wordIndex+1
+      wordToSound(llSound)
+      
    
     elif(word[i].lower() == "o"):
-      for i in range(0,lolen):
-        losampleValue=getSampleValueAt(loSound,i)
-        #print "it enter this part"
-        setSampleValueAt(wordSound,wordIndex,losampleValue)
-        wordIndex = wordIndex+1
+      wordToSound(loSound)
+      
         
     elif(word[i].lower() == "co"):
-      for i in range(0,colen):
-        losampleValue=getSampleValueAt(coSound,i)
-        #print "it enter this part"
-        setSampleValueAt(wordSound,wordIndex,losampleValue)
-        wordIndex = wordIndex+1
-        
-        
+      wordToSound(coSound)
+  
     elif(word[i].lower() == "ol"):
-      for i in range(0,ollen):
-        losampleValue=getSampleValueAt(olSound,i)
-        #print "it enter this part"
-        setSampleValueAt(wordSound,wordIndex,losampleValue)
-        wordIndex = wordIndex+1
+      wordToSound(olSound)
         
      #from here on adding more
     elif(word[i].lower() == "bu"):
-      for i in range(0,bulen):
-        losampleValue=getSampleValueAt(buSound,i)
-        #print "it enter this part"
-        setSampleValueAt(wordSound,wordIndex,losampleValue)
-        wordIndex = wordIndex+1
+      wordToSound(buSound)
         
     elif(word[i].lower() == "sh"):
-      for i in range(0,shlen):
-        losampleValue=getSampleValueAt(shSound,i)
-        #print "it enter this part"
-        setSampleValueAt(wordSound,wordIndex,losampleValue)
-        wordIndex = wordIndex+1
+      wordToSound(shSound)
         
         
     elif(word[i].lower() == "it"):
-      for i in range(0,itlen):
-        losampleValue=getSampleValueAt(itSound,i)
-        #print "it enter this part"
-        setSampleValueAt(wordSound,wordIndex,losampleValue)
-        wordIndex = wordIndex+1            
-   
-  chooseSpeed(wordSound, 3)
+      wordToSound(itSound)
+              
+  global wordToSound 
+  #chooseSpeed(wordToSound, 3)
+        
+
+  
+
+# dynamically creating lenth of word to be played
+# defining the global value 
+fullWordSound = makeEmptySound(1, 44100)
+
+def wordToSound(partOfWord):
+  print("it enter this part")
+  global fullWordSound
+  counter=0
+  fulWordLen=getLength(fullWordSound)
+  partofWordLen=getLength(partOfWord)
+  # copying whats in the global fullWordSound to temp value befure its copied back to fullWordSound
+  #making new empty sound
+  tempFullWordSound=makeEmptySound(fulWordLen, 44100)
+  # copying original to new temp
+  for i in range(0, fulWordLen):
+    sample=getSampleValueAt(fullWordSound, i)
+    setSampleValueAt(tempFullWordSound,i, sample)
+  #putting evertyhing back to full word sound + adding space for the next sound file  
+  fullWordSound=makeEmptySound(fulWordLen + partofWordLen, 44100)   
+  #copying to orignal sound over to tempfullword to leave it as the global variable
+  for i in range(0, fulWordLen):
+    sample=getSampleValueAt(tempFullWordSound, i)
+    setSampleValueAt(fullWordSound,counter, sample)
+    counter=counter+1
+      
+  for i in range(0,partofWordLen):
+    sample=getSampleValueAt(partOfWord, i)
+    setSampleValueAt(fullWordSound,counter, sample)
+    counter=counter+1
+
   
   
 def chooseSpeed(sound, pace):
@@ -172,7 +135,48 @@ def chooseSpeed(sound, pace):
     sourceIndex=0
     
  play(target) 
-   
+
+# dynamically creating lenth of word to be played
+# defining the global value 
+fullWordSound = makeEmptySound(1, 44100)
+###
+
+
+# dynamically creating lenth of word to be played
+# defining the global value 
+fullWordSound = makeEmptySound(1, 44100)
+
+def wordToSound(partOfWord):
+  tempPart=getLength(partOfWord)
+  #copying what was in the global empty sound
+    
+  tempFullWordSound=makeEmptySound(tempWlen + tempPart, 44100)
+  for i in range(0, tempWlen):
+   setSampleValueAT(tempFullWordSound,i, sample)
+    
+   tempFlen=getLength(tempFUllWordSound)    
+   fullWordSound = makeEmptySound(tempWlen + tempPart, 44100) 
+  for i in range(0, tempFlen):
+    sample=getSampleValueAT(tempFullWordSound, i)
+    setSampleValueAt(fullWordSound, i, sample)
+
+##
+
+def wordToSound(partOfWord):
+  tempPart=getLength(partOfWord)
+  #copying what was in the global empty sound
+    
+  tempFullWordSound=makeEmptySound(tempWlen + tempPart, 44100)
+  for i in range(0, tempWlen):
+   setSampleValueAT(tempFullWordSound,i, sample)
+    
+   tempFlen=getLength(tempFUllWordSound)    
+   fullWordSound = makeEmptySound(tempWlen + tempPart, 44100) 
+  for i in range(0, tempFlen):
+    sample=getSampleValueAT(tempFullWordSound, i)
+    setSampleValueAt(fullWordSound, i, sample)
+    
+                  
 def main():
   userInput = raw_input("Please Enter a Word: ")
   wordStart = 0
